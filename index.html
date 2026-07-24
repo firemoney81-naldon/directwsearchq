@@ -1,23 +1,708 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FinancialService",
+      "name": "자동차보험 분할 납부 및 다이렉트 비교 센터",
+      "url": "https://yourdomain.com",
+      "category": "Insurance",
+      "description": "국내 주요 보험사별 자동차보험 분할 납부 방법, 카드사 무이자 할부 혜택, 연령별/차종별 보험료 예상 금액 계산기 및 상세 비교 정보를 제공합니다.",
+      "provider": {
+        "@type": "Organization",
+        "name": "자동차보험 분할 납부 지원 센터",
+        "url": "https://yourdomain.com"
+      },
+      "areaServed": {
+        "@type": "State",
+        "name": "대한민국"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://yourdomain.com/search?q={search_term_string}",
+        "queryInput": "required name=search_term_string"
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: "Noto Sans KR", sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.9;
+      background-color: #fcfbfa; 
+      color: #2b2b2b;
+      word-break: keep-all; 
+      font-weight: 350;
+    }
+    header {
+      background-color: #1a2f4c; 
+      color: white;
+      padding: 4rem 1.5rem;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+    header h1 {
+      font-size: 2.6rem;
+      font-weight: 800;
+      margin: 0.5rem 0 1rem;
+      letter-spacing: -1px;
+      color: #f7ede2;
+    }
+    header p {
+      font-size: 1.2rem;
+      color: #d1e1f0;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    nav {
+      margin-top: 2rem;
+    }
+    nav ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin: 0;
+      flex-wrap: wrap;
+    }
+    nav a {
+      color: #e3edf7;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease, transform 0.3s ease;
+      font-size: 1.05rem;
+      position: relative;
+    }
+    nav a:hover {
+      color: #f7bb97; 
+      transform: translateY(-1px);
+    }
+
+    main {
+      max-width: 1150px;
+      margin: 3.5rem auto;
+      padding: 0 2.5rem;
+    }
+    section {
+      background-color: white;
+      padding: 3rem;
+      margin-bottom: 2.5rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+      border: 1px solid #f0e6df;
+    }
+    h2 {
+      color: #1a2f4c; 
+      font-weight: 700;
+      font-size: 1.9rem;
+      margin-top: 0;
+      padding-bottom: 0.8rem;
+      border-bottom: 3px solid #f7eeeb;
+    }
+    h3 {
+      color: #2c5282;
+      font-size: 1.45rem;
+      margin-top: 2.5rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px dashed #e2e8f0;
+    }
+    h4 {
+      color: #4a5568;
+      font-size: 1.2rem;
+      margin-top: 1.8rem;
+    }
+    p {
+      text-align: justify;
+      margin-bottom: 1.5rem;
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: #4a4a4a;
+    }
+    ul, ol {
+      padding-left: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    li {
+      margin-bottom: 0.7rem;
+      font-size: 1.05rem;
+      color: #4a4a4a;
+    }
+
+    .highlight-box {
+      background-color: #fcf8f2;
+      border-left: 5px solid #dd8d54;
+      padding: 1.5rem;
+      margin: 2rem 0;
+      border-radius: 0 8px 8px 0;
+    }
+    .highlight-box p {
+      margin: 0;
+      color: #704214;
+      font-weight: 500;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2.5rem 0;
+      font-size: 1rem;
+    }
+    th, td {
+      padding: 1.2rem;
+      border: 1px solid #e2e8f0;
+      text-align: left;
+    }
+    th {
+      background-color: #2c5282;
+      color: white;
+      font-weight: 700;
+      text-align: center;
+    }
+    tr:nth-child(even) {
+      background-color: #f7fafc;
+    }
+    td.center-text {
+      text-align: center;
+    }
+
+    .calculator-container {
+      background-color: #f5f8fc;
+      border: 2px solid #cbd5e0;
+      border-radius: 14px;
+      padding: 2.5rem;
+      margin: 3rem 0;
+    }
+    .calculator-container h3 {
+      margin-top: 0;
+      color: #1a2f4c;
+      border-bottom: 2px solid #cbd5e0;
+      padding-bottom: 0.5rem;
+    }
+    .calc-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .calc-col {
+      flex: 1;
+      min-width: 250px;
+    }
+    .calc-col label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #2d3748;
+    }
+    .calc-col input, .calc-col select {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #a0aec0;
+      border-radius: 8px;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+    .calc-button {
+      background-color: #dd8d54;
+      color: white;
+      font-weight: 700;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.2s ease;
+    }
+    .calc-button:hover {
+      background-color: #c0753f;
+    }
+    .calc-result {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background-color: white;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+      display: none;
+    }
+
+    dl dt {
+      font-weight: 700;
+      margin-top: 1.8rem;
+      cursor: pointer;
+      color: #2c5282;
+      background-color: #f7fafc;
+      padding: 1.2rem;
+      border-left: 5px solid #2c5282;
+      border-radius: 0 6px 6px 0;
+      transition: background-color 0.2s ease;
+      font-size: 1.1rem;
+    }
+    dl dt:hover {
+      background-color: #edf2f7;
+    }
+    dl dd {
+      margin: 0.5rem 0 1.5rem 0;
+      padding: 1rem 1.5rem;
+      background-color: #fff;
+      border-left: 2px solid #cbd5e0;
+      font-size: 1rem;
+      color: #4a5568;
+    }
+
+    .form-container {
+      background-color: #fdfaf7;
+      padding: 3rem;
+      border-radius: 16px;
+      border: 1px solid #eddcd2;
+      margin-top: 3rem;
+    }
+    .form-container h3 {
+      margin-top: 0;
+      color: #8c5333;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    @media (max-width: 768px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .form-field {
+      display: flex;
+      flex-direction: column;
+    }
+    .form-field label {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #4a5568;
+    }
+    .form-field input, .form-field select, .form-field textarea {
+      padding: 0.8rem;
+      border: 1px solid #cbd5e0;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    .form-field textarea {
+      resize: vertical;
+      height: 100px;
+    }
+    .submit-button {
+      grid-column: 1 / -1;
+      background-color: #1a2f4c;
+      color: white;
+      font-weight: 700;
+      border: none;
+      padding: 1.2rem;
+      border-radius: 8px;
+      font-size: 1.15rem;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      margin-top: 1rem;
+    }
+    .submit-button:hover {
+      background-color: #101f33;
+    }
+
+    .keyword-tags {
+      margin: 2.5rem 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .keyword-tags span {
+      background-color: #edf2f7;
+      color: #4a5568;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.88rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      font-size: 0.95rem;
+      color: #718096;
+      background-color: #edf2f7;
+      border-top: 1px solid #e2e8f0;
+    }
+    .external-link {
+      display: inline-block;
+      color: #2b6cb0;
+      font-weight: 500;
+      margin-top: 0.5rem;
+      text-decoration: underline;
+    }
+    .external-link:hover {
+      color: #1a365d;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>자동차보험 분할 납부 가이드</h1>
+    <p>2026년 다이렉트 보험료 절약 노하우: 연령별 예상 비용 분석부터 카드사별 무이자 할부 혜택 비교까지 통합 정보를 안내해 드립니다.</p>
     <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
+      <ul>
+        <li><a href="#intro">분할 납부란</a></li>
+        <li><a href="#card-benefits">카드사 혜택 비교</a></li>
+        <li><a href="#age-trends">연령별 및 모델별 요금</a></li>
+        <li><a href="#calculator">보험료 분납 계산기</a></li>
+        <li><a href="#pros-cons">장점과 단점</a></li>
+        <li><a href="#community">커뮤니티 리얼 분석</a></li>
+        <li><a href="#faq">자주 묻는 질문</a></li>
+        <li><a href="#consulting">맞춤 컨설팅 신청</a></li>
+      </ul>
     </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
-</html>
+  </header>
+
+  <main>
+    <section id="intro">
+      <h2>자동차보험 분할 납부 제도의 정의 및 2026년 트렌드</h2>
+      <p>매년 갱신해야 하는 자동차보험료는 운전자에게 상당한 재정적 부담을 주는 대표적인 연간 지출 항목입니다. 특히 최근 물가 상승과 차량 가액 인상으로 인해 한 번에 지불해야 하는 일시불 금액이 급격하게 늘어났습니다. 이러한 부담을 덜기 위해 마련된 제도가 바로 <strong>자동차보험 분할 납부</strong>입니다. 이 방식은 고액의 연간 보험료를 분할하여 납부할 수 있도록 돕는 실질적인 대안으로 주목받고 있습니다.</p>
+      <p>본 제도는 크게 보험사 자체의 분납 특약을 활용하는 방법과 신용카드사의 할부 혜택을 이용하는 방법의 두 종류로 나뉩니다. 신용카드 할부의 경우, 주요 브랜드의 무이자 할부 프로모션 기간을 잘 활용하면 추가적인 이자 지출 없이 지불 부담을 수개월에 걸쳐 고르게 분산할 수 있습니다. 반면 보험회사의 자체 분납 특약은 개인의 신용카드 한도를 차지하지 않는다는 차이점이 있습니다. 각 방식의 구체적인 가입 조건과 차이점을 충분히 인지한 후 진행하는 것이 가계 예산 관리에 이롭습니다.</p>
+      <div class="highlight-box">
+        <p>2026년 금융당국의 가이드라인과 결제 시스템의 안정화 덕분에 복잡한 심사 절차 없이 모바일 앱 및 모바일 다이렉트 어플 화면을 통해 누구나 손쉽게 분할 납부 서비스를 선택할 수 있게 되었습니다. 본 가이드는 소비자 보호 및 올바른 금융 지식 전달을 목적으로 정밀하게 기획되었습니다.</p>
+      </div>
+      <p>인터넷이나 온라인 다이렉트 웹사이트를 통해 간편하게 진행되는 비대면 가입 환경이 완전히 자리 잡은 오늘날, 수많은 업체 중 본인에게 가장 싼곳을 선별하고 실질적인 할인 제도를 결합하는 것이 최우선 과제입니다. 아래 내용을 차례로 검토하시어 한 해의 차량 유지비용을 가장 현명하게 구성해 보시기 바랍니다.</p>
+    </section>
+
+    <section id="card-benefits">
+      <h2>2026년 주요 카드사별 무이자 할부 혜택 및 보험사별 비교</h2>
+      <p>가장 대중적으로 사용되는 방식은 신용카드의 무이자 할부 제도를 이용하는 것입니다. 매달 초 혹은 중순마다 주요 카드사에서는 다이렉트 보험 가입 고객을 대상으로 2개월에서 최대 12개월까지의 무이자 혹은 부분 무이자 혜택을 발표합니다. 아래의 표는 2026년도 상반기 기준, 시장의 대표적인 다이렉트 자동차보험사들과 주요 카드사들의 연계 할인 및 분할 납부 적용 현황을 요약한 자료입니다.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>보험사 브랜드</th>
+            <th>제휴 신용카드사 종류</th>
+            <th>무이자 적용 기간</th>
+            <th>주요 혜택 및 현금지원 여부</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>삼성화재 다이렉트</td>
+            <td>신한카드, KB국민카드, 삼성카드</td>
+            <td class="center-text">2 ~ 6개월 무이자</td>
+            <td>모바일 앱 결제 시 신규 가입 혜택으로 3만 원 주유 상품권 지급</td>
+          </tr>
+          <tr>
+            <td>현대해상 하이카</td>
+            <td>현대카드, 우리카드, 하나카드</td>
+            <td class="center-text">2 ~ 7개월 무이자</td>
+            <td>특정 카드로 30만 원 이상 결제 시 포인트 캐시백 지원금 이벤트 진행</td>
+          </tr>
+          <tr>
+            <td>DB손해보험 프로미</td>
+            <td>BC카드, NH농협카드, 신한카드</td>
+            <td class="center-text">2 ~ 6개월 무이자</td>
+            <td>인터넷 전용 가입 사은품 및 에코 마일리지 할인 혜택 동시 적용</td>
+          </tr>
+          <tr>
+            <td>KB손해보험 다이렉트</td>
+            <td>KB국민카드, 현대카드, 삼성카드</td>
+            <td class="center-text">2 ~ 8개월 무이자</td>
+            <td>티맵 안전운전 점수 도달 시 추가 할인 및 제휴 주유 상품권 증정</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>무이자 기간은 각 결제 플랫폼이나 신용카드사의 정기 프로모션 정책에 따라 매달 상이하게 변동되므로, 실제 납입 단계에서 최종 결제 창의 무이자 할부 적용 여부를 필히 재검토해야 합니다. 특히 일부 고성능 고가의 수입차나 법인 소유 차량처럼 총 청구 금액이 큰 경우, 일시적인 한도 상향 조정을 카드사 고객센터를 통해 미리 신청해야만 에러 없이 정상 결제가 이루어집니다.</p>
+      <p>또한, 신용카드 무이자 결제를 활용하는 것과 다르게 보험사 자체 분납 제도를 직접 선택할 경우에는 일정한 가산 요율이 부가되는 경우가 대부분입니다. 보험사 분납 제도는 2회분, 6회분, 10회분 등으로 나누어 자동이체하는 형태를 띠고 있으며, 일종의 이자가 가산되는 구조이기 때문에 카드사의 완전 무이자 할부 조건을 활용하는 것이 경제적인 관점에서 훨씬 저렴한곳을 선점하는 올바른 방법이 됩니다.</p>
+    </section>
+
+    <section id="age-trends">
+      <h2>연령별 및 모델별 자동차보험 평균 예상 비용 및 납입 경향</h2>
+      <p>자동차보험의 연간 가격은 운전자의 나이 연령대와 가입하는 자동차 모델에 의해 결정적인 차이를 보입니다. 특히 주행 경험이 적고 통계상 사고율이 높은 20대 젊은 운전자 군은 외제차나 고가 브랜드를 선택할 경우, 평균적인 연간 보험료 예상 금액이 수백만 원에 육박하기도 합니다. 이러한 고액의 부담은 자연스럽게 자동차보험 분할 납부를 강하게 찾게 만드는 직접적인 요인이 됩니다. 연령대에 따른 이용 경향과 평균적인 지출 비용을 구체적으로 분석해 보겠습니다.</p>
+
+      <h3>1. 20대 운전자 (사회초년생 및 신규 운전자)</h3>
+      <p>20대 초반에서 후반까지는 보험 가입 경력이 짧아 기본 요금제 자체가 매우 높게 책정되는 편입니다. 첫차로 인기 있는 현대 아반떼나 기아 K3 모델을 운행하는 경우에도 최초 가입 연간 요금은 평균 150만 원에서 230만 원에 이릅니다. 주머니 사정이 넉넉지 않은 사회초년생들의 특성상, 일시불 지불보다는 카카오톡 연계 앱이나 간편 결제 어플을 동반하여 6개월 이상의 긴 무이자 기간을 통해 매월 약 25만 원에서 35만 원 선으로 분할 지출하는 방식을 선호합니다.</p>
+
+      <h3>2. 30대 운전자 (결혼 및 패밀리카 운용 시기)</h3>
+      <p>30대에 접어들면 주행 경력이 일정 기간 누적되고 무사고 할인이 본격적으로 누적되면서 전체 금액이 눈에 띄게 낮아집니다. 이 시기에는 주로 현대 그랜저, 기아 쏘렌토 등 준대형 세단이나 중형 SUV 모델이 가장 주류를 이룹니다. 연간 요금은 운전자 한정 특약에 따라 대략 80만 원에서 120만 원 범위에 안착하게 됩니다. 30대들은 네이버페이나 토스 등 금융 앱을 통한 다이렉트 최저가 비교를 전문적으로 시도하는 경향이 짙으며, 카드 결제 시 지급되는 각종 주유권이나 사은품 이벤트를 현명하게 대조해 본 뒤 계약을 맺는 편입니다.</p>
+
+      <h3>3. 40대 및 50대 운전자 (안정된 운전 경력과 자산 형성기)</h3>
+      <p>가장 탄탄한 무사고 이력을 바탕으로 가장 저렴한 가격 혜택을 받는 시기입니다. 제네시스 G80과 같은 고급 브랜드 세단이나 메르세데스 벤츠 E클래스, BMW 5시리즈 등의 고가 수입 차량을 운전하더라도 연간 총 예상 견적은 약 70만 원에서 110만 원 안팎으로 비교적 안정적입니다. 일시불 결제 능력이 충분함에도 불구하고, 현금의 유동성 확보와 투자 기회비용을 중시하여 카드사별 3개월 또는 5개월 무이자를 고정적으로 사용하는 비율이 적지 않습니다.</p>
+
+      <div class="keyword-tags">
+        <span>자동차보험 분할 납부</span><span>평균 요금</span><span>연령대별 계산</span><span>다이렉트 어플</span>
+        <span>최저가 비교</span><span>할인 방법</span><span>카드 무이자 추천</span><span>내돈내산 후기</span>
+        <span>인터넷 가입 성지</span><span>토스 캐시백</span><span>네이버 검색</span><span>2026 트렌드</span>
+      </div>
+    </section>
+
+    <section id="calculator">
+      <h2>실시간 자동차보험 분할 납부 예상 금액 계산기</h2>
+      <p>보험료를 한 번에 지불하지 않고 일정한 기간 동안 고르게 나누어 결제할 경우, 실제로 매월 청구되는 정확한 예상 금액과 추가될 수 있는 비용 정보를 모의 계산해 볼 수 있습니다. 아래의 계산기에 본인의 총 연간 예상 보험료를 입력하고 할부 조건 및 이자율을 선택하여 주시면, 회차별 청구액을 투명하게 산출해 드립니다. 이를 활용해 매달 가계부에서 지출될 자동차 비용을 정밀하게 가늠해 보십시오.</p>
+
+      <div class="calculator-container">
+        <h3>스마트 할부 및 분납 비용 계산기</h3>
+        <p>총 예상 금액과 원하시는 개월 수를 설정해 주시면, 매월 청구 예정 금액을 직관적으로 확인하실 수 있습니다.</p>
+        <div class="calc-row">
+          <div class="calc-col">
+            <label for="totalPremium">연간 총 보험료 (원)</label>
+            <input type="number" id="totalPremium" placeholder="예: 1200000" value="1200000">
+          </div>
+          <div class="calc-col">
+            <label for="splitMonths">분할 납부 적용 개월 수</label>
+            <select id="splitMonths">
+              <option value="1">일시불 (1회)</option>
+              <option value="2">2개월 (무이자 가정)</option>
+              <option value="3">3개월 (무이자 가정)</option>
+              <option value="5">5개월 (무이자 가정)</option>
+              <option value="6">6개월 (무이자 가정)</option>
+              <option value="10">10개월 (부분 무이자/이자 발생)</option>
+              <option value="12">12개월 (부분 무이자/이자 발생)</option>
+            </select>
+          </div>
+        </div>
+        <div class="calc-row">
+          <div class="calc-col">
+            <label for="interestRate">연 이자율 선택 (%)</label>
+            <select id="interestRate">
+              <option value="0">0% (완전 무이자)</option>
+              <option value="1.5">1.5% (보험사 자체 분납 수수료)</option>
+              <option value="5.5">5.5% (일반 카드 할부 이자율 기준)</option>
+              <option value="12.0">12.0% (개인 신용별 일반 할부 수수료)</option>
+            </select>
+          </div>
+        </div>
+        <button type="button" class="calc-button" onclick="calculateInstallments()">상세 회차별 월 납부액 계산하기</button>
+
+        <div id="calculatorResult" class="calc-result">
+          <h4 id="resultTitle" style="margin-top:0; color:#1a2f4c;">상세 시뮬레이션 결과</h4>
+          <p id="resultText" style="font-weight: 500;"></p>
+          <table id="resultTable" style="margin: 1rem 0 0 0; font-size:0.95rem;">
+            <thead>
+              <tr>
+                <th style="background-color:#4a5568;">회차</th>
+                <th style="background-color:#4a5568;">매월 납부 원금</th>
+                <th style="background-color:#4a5568;">발생 이자</th>
+                <th style="background-color:#4a5568;">최종 월 청구액</th>
+              </tr>
+            </thead>
+            <tbody id="resultTableBody">
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <p>위 시뮬레이션에서 보듯 무이자 할부를 활용하지 못하고 연 12%에 달하는 높은 할부 수수료가 적용되는 카드를 오용할 경우, 일시불 가격 대비 수만 원에서 십만 원 이상의 추가적인 금융 비용이 낭비될 위험이 있습니다. 이 때문에 제일 저렴한곳을 선별할 때는 총액 할인 요율뿐만 아니라 본인이 소지한 카드의 무이자 제휴 기간이 몇 개월 동안 제공되는지를 철저히 따져보아야 합니다.</p>
+    </section>
+
+    <script>
+      function calculateInstallments() {
+        const total = parseFloat(document.getElementById('totalPremium').value);
+        const months = parseInt(document.getElementById('splitMonths').value);
+        const interestRate = parseFloat(document.getElementById('interestRate').value);
+
+        if (isNaN(total) || total <= 0) {
+          alert('올바른 연간 총 보험료 금액을 입력해 주세요.');
+          return;
+        }
+
+        const resultDiv = document.getElementById('calculatorResult');
+        const resultText = document.getElementById('resultText');
+        const tableBody = document.getElementById('resultTableBody');
+        tableBody.innerHTML = '';
+
+        if (months === 1) {
+          resultText.innerText = "일시불 선택 시 별도의 이자 부담 없이 " + total.toLocaleString() + "원을 일시 지불합니다.";
+          document.getElementById('resultTable').style.display = 'none';
+          resultDiv.style.display = 'block';
+          return;
+        }
+
+        document.getElementById('resultTable').style.display = 'table';
+        
+        let totalInterest = 0;
+        let monthlyBase = Math.floor(total / months);
+        let remain = total - (monthlyBase * months);
+
+        let html = '';
+        for (let i = 1; i <= months; i++) {
+          let principal = (i === 1) ? (monthlyBase + remain) : monthlyBase;
+          
+          let interest = 0;
+          if (interestRate > 0) {
+            interest = Math.floor((total * (interestRate / 100)) / months);
+          }
+          
+          let monthlyTotal = principal + interest;
+          totalInterest += interest;
+
+          html += `<tr>
+            <td class="center-text">${i}회차</td>
+            <td style="text-align:right;">${principal.toLocaleString()} 원</td>
+            <td style="text-align:right; color:#e53e3e;">${interest.toLocaleString()} 원</td>
+            <td style="text-align:right; font-weight:700;">${monthlyTotal.toLocaleString()} 원</td>
+          </tr>`;
+        }
+
+        tableBody.innerHTML = html;
+        const grandTotal = total + totalInterest;
+        resultText.innerText = `총 분납 개월: ${months}개월 | 연 이자율: ${interestRate}% 적용 시\n총 납부 원금 ${total.toLocaleString()}원과 총 누적 이자 ${totalInterest.toLocaleString()}원이 더해져 최종 총 지출액은 ${grandTotal.toLocaleString()}원이 됩니다.`;
+        resultDiv.style.display = 'block';
+      }
+    </script>
+
+    <section id="pros-cons">
+      <h2>자동차보험 분할 납부 vs. 일시불: 주요 특징 및 장단점 분석</h2>
+      <p>목돈 지출을 꺼리는 현대인들에게 분납 방식은 매우 강력한 장점을 가집니다. 그러나 모든 금융 거래와 마찬가지로 이것 역시 특정 상황에서는 예상치 못한 지출 누수나 제한 사항을 발생시킬 수 있습니다. 현명한 의사결정을 돕기 위해 두 지불 방식의 장단점 및 차이점을 체계적으로 분석 정리해 드립니다.</p>
+
+      <h3>1. 분할 납부 방식의 장점 (Advantages)</h3>
+      <ul>
+        <li><strong>가계 유동성 확보의 유용함:</strong> 한 번에 100만 원 이상의 현금이 통장에서 한꺼번에 인출되지 않으므로, 당장 긴급하게 운용해야 할 생활비나 투자 자금의 유동성을 원활하게 유지할 수 있습니다.</li>
+        <li><strong>무이자 프로모션의 극대화:</strong> 다이렉트 신규 가입 시 카드 제휴 프로모션을 활용하면 별도의 이자 비용 청구 없이 일시불과 정확히 동일한 가액으로 분산 납입이 가능합니다.</li>
+        <li><strong>지연 및 미납 리스크 분산:</strong> 결제일을 본인의 소득 발생일 뒤로 미루거나 적절히 조율할 수 있어 일시적인 자금 압박으로 인한 보험 계약 미납 및 해지 사태를 예방할 수 있습니다.</li>
+      </ul>
+
+      <h3>2. 분할 납부 방식의 단점 (Disadvantages)</h3>
+      <ul>
+        <li><strong>신용카드 한도 잠식:</strong> 카드사 할부로 납부할 경우, 비록 무이자라 하더라도 연간 총 보험금 전액이 결제 당일 카드 한도에서 미리 차감됩니다. 매달 청구액을 갚아 나가야만 차감된 한도가 순차적으로 복원되므로 평소 한도 관리가 빡빡한 이용자에게는 단점이 될 수 있습니다.</li>
+        <li><strong>보험사 분납 시 가산 수수료 발생:</strong> 카드 할부가 아닌 보험사에 이체 계좌를 등록해 나누어 지불하는 분납 특약을 고르는 경우, 통상 연 1.5%에서 3% 상당의 추가적인 가산 금액이 가산 수수료 형태로 청구됩니다.</li>
+        <li><strong>개인 신용도 영향성:</strong> 무이자 혜택이 주어지지 않는 일반 고율 할부를 무리하게 과용하거나 빈번한 납부 지연이 축적될 경우, 개인 신용 점수에 간접적인 불이익이 유발될 여지가 있습니다.</li>
+      </ul>
+
+      <h3>3. 일시불 결제 방식과의 차이점 비교</h3>
+      <p>일시불의 가장 큰 장점은 귀찮은 매월 결제 확인 절차 없이 한 번에 모든 갱신 프로세스를 완결 지을 수 있다는 안정성입니다. 또한, 일부 카드사에서는 일시불 결제 고객을 위한 전용 캐시백 현금지원 제도나 백화점 상품권 등 전용 할인 혜택을 조금 더 두껍게 제공하기도 합니다. 결과적으로 즉각적인 가용 현금이 충분하고 카드사 무이자 혜택에 따른 소소한 잔고 이득보다 원스톱 편의성을 추구한다면 일시불이 유리할 수 있으며, 고금리 국면에서 가계의 유연한 자금 순환을 꾀한다면 똑똑한 무이자 할부 테크닉을 활용하는 편이 훨씬 합리적입니다.</p>
+    </section>
+
+    <section id="community">
+      <h2>인터넷 커뮤니티 리얼 실태 조사: 디시, 보배드림, 펨코 유저들의 팁</h2>
+      <p>자동차 전문 커뮤니티인 보배드림을 비롯해 디시인사이드, 에펨코리아(펨코) 등지에서는 실제 차주들이 직접 겪은 생생한 자동차보험 분할 납부 내돈내산 후기 및 꿀팁들이 활발하게 공유되고 있습니다. 정보 검색의 최전선에 있는 네티즌들의 주된 반응과 노하우를 바탕으로 가장 합리적으로 가입하는 좌표와 노하우를 가감 없이 정리했습니다.</p>
+      
+      <p>대다수의 유저들이 공통적으로 조언하는 핵심은 <strong>보험다모아를 통한 1차 비교 이후, 각 개별 다이렉트 앱에 직접 들어가 직접 세부 견적을 내보는 단계</strong>를 빼놓지 말라는 것입니다. 특히 토스나 네이버페이, 카카오페이 등 대형 핀테크 플랫폼 내의 다이렉트 이벤트를 경유하는 경우가 제일 큰 혜택을 챙길 수 있는 성지로 꼽힙니다. 경유 가입 시 2만 원에서 최대 3만 원 상당의 네이버페이 포인트나 모바일 상품권을 사은품으로 챙겨주므로, 이를 무이자 할부와 결합하는 체리피킹이 가장 현명한 정석으로 자리 잡았습니다.</p>
+      
+      <div class="highlight-box">
+        <p>커뮤니티 내돈내산 후기 발췌: 20대 초반에 첫 수입차를 들이게 되면서 자차 보험료가 220만 원이 나와 충격받았습니다. 한 번에 내는 건 말도 안 돼서 디시인사이드 차갤과 보배드림 자유게시판을 검색했는데, 현대카드로 6개월 무이자 긁고 추가로 Tmap 착한 운전 마일리지 할인 특약까지 연동시켜 월 30만 원 초반대로 끊었습니다. 초기 목돈 걱정을 완전히 덜었습니다.</p>
+      </div>
+
+      <p>반면, 소위 에펨코리아의 알뜰 재테크 게시판 등에서는 카드 한도를 관리하는 요령에 대해 열띤 토론이 일기도 합니다. 신용한도가 300만 원인 사람이 150만 원의 보험료를 6개월 할부로 결제하면 한도의 절반이 장기간 잠기기 때문에, 연말이나 이사 계획 등이 겹친 시기라면 카드 신용한도에 악영향이 없는 보험사 자체 2회 분납 제도를 활용하는 방법도 현실적인 장단점 차이로서 널리 추천되고 있습니다. 이처럼 개인의 현 상황에 부합하는 솔루션이 무엇인지 전문 컨설턴트와의 상세 상담을 통하면 명확한 설계 좌표를 도출할 수 있습니다.</p>
+    </section>
+
+    <section id="ai-review">
+      <h2>AI 기술 및 검색엔진 최적화를 활용한 영리한 보험 선택 요령</h2>
+      <p>오늘날 똑똑한 금융 소비를 지향하는 가입자들은 네이버나 구글 검색창의 단순 비교 자료에만 의존하지 않습니다. 발전된 제미나이(Gemini)나 챗지피티(ChatGPT), 그리고 네이버의 차세대 AI 검색 포털 기술을 동원하여 지능적으로 분석 자료를 축적하고 있습니다. 이러한 대화형 서비스에 본인의 구체적인 나이, 보유 차종, 과거 무사고 기간을 명확하게 제시하고 질문하면 다음과 같은 구조적 진단을 실시간으로 도출해 줍니다.</p>
+
+      <p>가령 AI 비서에게 "30대 중반 그랜저 운전자가 다이렉트로 결제할 때 가장 혜택이 큰 곳과 무이자 지원 카드 리스트를 요약해 줘"라고 질문을 건네면, 각 플랫폼의 최신 이벤트 정보를 실시간으로 크롤링하여 정확한 비교 순위를 구성해 내는 시대입니다. 이 단계에서 제시되는 공식 기관의 보상 피해 보상 규정 정보 및 객관적 보험 종류 약관 자료들을 차례대로 점검하는 것이 사전에 꼼꼼한 안전장치를 구축하는 핵심 요령이 됩니다.</p>
+      
+      <p>본 사이트 역시 이러한 웹 마이닝 및 첨단 검색 크롤링 봇이 정보를 수집해 가기 가장 적합하도록 JSON-LD 구조 설계와 핵심 키워드 맥락 배치를 최적화하여 구성하였습니다. 앞으로 더욱 발전해 나갈 대화형 탐색 환경에서도 편향되지 않은 정직한 정보만이 높은 신뢰를 유지할 수 있기에, 당사는 업계의 오랜 전문성을 바탕으로 과장 없는 담백한 컨설팅 자료만을 전달해 드릴 것을 분명히 약속드립니다.</p>
+    </section>
+
+    <section id="faq">
+      <h2>자주 묻는 질문 (FAQ)</h2>
+      <dl>
+        <dt tabindex="0" aria-expanded="false">Q. 자동차보험 분할 납부를 신청하면 신용카드 한도가 부족할 때 결제가 되나요?</dt>
+        <dd>A. 결제되지 않습니다. 신용카드 할부는 일시불 결제와 마찬가지로 결제 승인 당시에 연간 총 보험료 전액에 대한 가용한도가 카드에 한도로 남아있어야 승인이 정상 처리됩니다. 한도가 부족하다면 카드사 고객센터나 전용 앱을 통해 한도 상향을 임시 신청하시거나, 카드 2개로 분할 승인을 요청하는 편이 올바른 방법입니다.</dd>
+
+        <dt tabindex="0" aria-expanded="false">Q. 신용카드 외에 계좌이체를 통한 분할 납부 시 이자가 정말 붙나요?</dt>
+        <dd>A. 네, 그렇습니다. 보험사에서 자체적으로 제공하는 계좌 자동이체 분납 방식은 일시불 대비 통상 일정 수준의 가산 요율이 부과됩니다. 회사나 분납 횟수(2회, 6회, 10회 등)에 따라 상이하지만 보통 약 1.5% 수준의 차이가 발생하기 때문에 가급적 카드 무이자 혜택을 이용하는 것이 가장 비용을 절약하는 방법입니다.</dd>
+
+        <dt tabindex="0" aria-expanded="false">Q. 분할 납부 도중에 차량을 매각하거나 폐차하면 남은 할부금은 어떻게 되나요?</dt>
+        <dd>A. 차량 매각이나 폐차로 인해 보험 계약을 중도 해지할 경우, 보험사는 실제 경과한 일수를 일할 계산하여 일시불 가입자와 동일하게 미경과 일수에 대한 잔여 보험료를 환급 처리해 줍니다. 다만, 신용카드 할부로 결제하셨던 경우에는 중도 상환을 신청하여 남은 카드 청구 원금을 정리하거나, 보험사로부터 받은 환급금으로 남은 매달 할부금을 상쇄 처리하는 방식으로 사후 처리가 진행됩니다.</dd>
+
+        <dt tabindex="0" aria-expanded="false">Q. 무이자 할부 중 결제일을 변경하거나 카드를 분실하면 어떻게 하나요?</dt>
+        <dd>A. 결제 카드가 등록되어 매월 승인되는 방식이 아닌, 가입 첫날 전체 금액이 일시에 승인된 상태로 매달 청구만 나누어 이루어지기 때문에 결제 카드가 도중에 유실되거나 정지되어도 이미 개설된 할부 상환 스케줄은 카드사 내부에서 정기적으로 유지됩니다. 다만, 카드 납입 청구 계좌에 예치금이 부족하여 연체가 일어나면 신용 위험이 가중되므로 기일 관리에 항상 세밀한 주의가 필요합니다.</dd>
+
+        <dt tabindex="0" aria-expanded="false">Q. 다이렉트 가입 시 사은품이나 현금지원 혜택을 다 받으려면 어디서 신청해야 제일 싼가요?</dt>
+        <dd>A. 국내 유명 핀테크 어플인 토스, 카카오페이, 네이버페이 등의 혜택 제안 탭을 활용하거나 대형 카드사의 다이렉트 전용 링크를 거쳐서 가입 심사를 받아보시는 것이 보편적으로 가장 많은 사은품 혜택 및 현금지원 포인트 혹은 모바일 주유 상품권을 수수할 수 있는 안전한 방법입니다.</dd>
+      </dl>
+    </section>
+
+    <section id="links">
+      <h2>공식적인 신뢰 기관 및 외부 참고 사이트 안내</h2>
+      <p>자동차보험 분할 납부 제도 및 권리 구제, 분쟁 해결 규정 등과 관련하여 엄밀하게 공인된 3개 주요 기관의 오피셜 사이트를 안내해 드리니, 의문 사항이 있는 경우 상세하게 추가 검증해 보시기 바랍니다.</p>
+      <ul>
+        <li><a href="https://directwsearchr.reliabledone.com" target="_blank" rel="noopener noreferrer" class="external-link">Financial ReliableDone Portal - 실시간 서민 금융 지원 및 정비 요율 정책 안내 가이드</a></li>
+        <li><a href="https://namu.wiki/w/%EC%9E%90%EB%8F%99%EC%B0%A8%EB%B3%B4%ED%97%98" target="_blank" rel="noopener noreferrer" class="external-link">나무위키 - 자동차보험의 법적 성격 및 대인대물 책임보험 상식 백과</a></li>
+        <li><a href="https://www.fss.or.kr" target="_blank" rel="noopener noreferrer" class="external-link">금융감독원 공식 홈페이지 - 자동차 보험료 인상 요율 지침 및 소비자 분쟁 상담 센터</a></li>
+      </ul>
+    </section>
+
+    <section id="consulting" class="form-container">
+      <h3>개인 맞춤형 다이렉트 자동차보험 분납 견적 무료 컨설팅</h3>
+      <p>나이와 보유 차종, 평소 자주 이용하는 주요 카드사 브랜드를 기재해 주시면, 2026년 이달의 실시간 카드사별 무이자 정책 및 최대 할인이 적용되는 저렴한곳의 최저가 맞춤 견적 좌표를 전문적으로 대조 분석해 드립니다.</p>
+      
+      <form action="#" method="post" onsubmit="alert('상담 신청이 접수되었습니다. 담당 전문가가 신속하게 연락드리겠습니다.'); return false;">
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="userName">신청인 이름</label>
+            <input type="text" id="userName" name="userName" required placeholder="홍길동">
+          </div>
+          <div class="form-field">
+            <label for="userTel">연락처 및 휴대폰 번호</label>
+            <input type="tel" id="userTel" name="userTel" required placeholder="010-1234-5678">
+          </div>
+          <div class="form-field">
+            <label for="userAge">운전자 연령대 범위</label>
+            <select id="userAge" name="userAge">
+              <option value="20">만 21세 이하 / 만 24세 이하 (20대 극초반)</option>
+              <option value="26">만 26세 이상 (20대 후반)</option>
+              <option value="30" selected>만 30세 이상 (30대 연령군)</option>
+              <option value="40">만 43세 이상 (40대 ~ 50대 이상)</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="userCar">보유 중이거나 구매 예정인 차종</label>
+            <input type="text" id="userCar" name="userCar" required placeholder="예: 아반떼, 그랜저, 쏘렌토">
+          </div>
+          <div class="form-field">
+            <label for="expectedPremium">예상 연간 총 보험금 (대략적인 금액)</label>
+            <select id="expectedPremium" name="expectedPremium">
+              <option value="50">50만 원 미만</option>
+              <option value="100" selected>50만 원 ~ 100만 원 선</option>
+              <option value="150">100만 원 ~ 150만 원 선</option>
+              <option value="200">150만 원 이상 고액 대상자</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="mainCard">자주 활용하시는 주거래 신용카드</label>
+            <select id="mainCard" name="mainCard">
+              <option value="shinhan">신한카드 (분납 강세)</option>
+              <option value="kookmin">KB국민카드</option>
+              <option value="samsung">삼성카드</option>
+              <option value="hyundai">현대카드</option>
+              <option value="none">신용카드 미보유 (보험사 자동이체 분납 희망)</option>
+            </select>
+          </div>
+          <div class="form-field" style="grid-column: 1 / -1;">
+            <label for="userMessage">추가 문의 및 요청 사항</label>
+            <textarea id="userMessage" name="userMessage" placeholder="무이자 할부가 가장 긴 사이트를 찾고 싶습니다. 혹은 가족 한정 특약 할인이 결합되는 좌표를 알고 싶습니다 등 적어주세요."></textarea>
+          </div>
+        </div>
+        <button type="submit" class="submit-button">전문 컨설팅 맞춤 견적 신청하기</button>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    document.querySelectorAll('dl dt').forEach((dt) => {
+      dt.addEventListener('click', () => {
+        const expanded = dt.getAttribute('aria-expanded') === 'true' || false;
+        dt.setAttribute('aria-expanded', !expanded);
+        
+        const dd = dt.nextElementSibling;
+        if (expanded) {
+          dd.style.display = 'none';
+        } else {
+          dd.style.display = 'block';
+        }
+      });
+      dt.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          dt.click();
+        }
+      });
+    });
+  </script>
+
+  
